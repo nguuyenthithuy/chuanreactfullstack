@@ -1,0 +1,42 @@
+{
+    "homeheader": {
+        "specialist": "Specialist clinic",
+        "searchdocter": "Find a doctor by specialty",
+        "infrastructure": "Health facilities",
+        "selectedroom": "Choose hospital clinic",
+        "doctor": "Doctor",
+        "selecteddoctor": "Choose a good doctor",
+        "package": "Checkup package",
+        "health": "General health check",
+        "support": "Support",
+        "Welcome": "Welcome, "
+    },
+    "banner": {
+        "title1": "MEDICAL BACKGROUND",
+        "title2": "COMPREHENSIVE HEALTH CARE",
+        "child1": "Specialist Examination",
+        "child2": "Remote examination",
+        "child3": "General examination",
+        "child4": "Medical test",
+        "child5": "Mental health",
+        "child6": "Dental examination",
+        "child7": "Surgery Package",
+        "child8": "Medical products",
+        "child9": "Corporate health"
+    },
+    "menu": {
+        "admin": {
+            "manage-user": "Users Symstem",
+            "manage-doctor": "Manage doctors",
+            "manage-admin": "Manage admins",
+            "crud": "CRUD user",
+            "crud-redux": "CRUD Redux",
+            "clinic": "Clinics",
+            "manage-clinic": "Manage clinics",
+            "specialty": "Specialties",
+            "manage-specialty": "Manage specialty",
+            "handbook": "Handbook",
+            "manage-handbook": "Manage handbook"
+        }
+    }
+}
