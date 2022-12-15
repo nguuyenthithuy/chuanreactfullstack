@@ -3,6 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { GetAllCodeService } from "../../../services/userService";
 import { LANGUAGES } from "../../../utils"
+import *as actions from '../../../store/actions'
 
 class UserRedux extends Component {
 
@@ -14,13 +15,26 @@ class UserRedux extends Component {
     }
 
     async componentDidMount() {
-        let res = await GetAllCodeService('gender')
-        if (res && res.errCode === 0) {
+        this.props.getGenderStart()
+        // let res = await GetAllCodeService('gender')
+        // if (res && res.errCode === 0) {
+        //     this.setState({
+        //         genderArr: res.data
+        //     })
+        // }
+        // console.log('check res', res)
+    }
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        //render => didupdate
+        // hiện tại (this) và quá khứ (prev)
+        // []                   [3]
+        // [3]                  [3]
+
+        if (prevProps.genderRedux !== this.props.genderRedux) {
             this.setState({
-                genderArr: res.data
+                genderArr: this.props.genderRedux
             })
         }
-        console.log('check res', res)
     }
 
 
@@ -28,6 +42,7 @@ class UserRedux extends Component {
         console.log("check state", this.state)
         let genders = this.state.genderArr;
         let language = this.props.language
+        console.log("check genderRedux", this.props.genderRedux)
         return (
             <div className='user-redux-container'>
                 <div className='title'>
@@ -113,12 +128,16 @@ class UserRedux extends Component {
 
 const mapStateToProps = state => {
     return {
-        language: state.app.language
+        language: state.app.language,
+        genderRedux: state.admin.genders
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
+        getGenderStart: () => dispatch(actions.fetchGenderStart())
+        // processLogout: () => dispatch(actions.processLogout()),
+        // changeLanguageAppRedux: (language) => dispatch(actions.changeLanguageApp(language))
     };
 };
 
