@@ -23,7 +23,15 @@ const DeleteUserService = (userId) => {
 }
 const UpdateUserService = (inPutUser) => {
     return axios.put('/api/edit-user', inPutUser)
-
-
 }
-export { handldeLoginApi, GetAllUser, creatNewUserReact, DeleteUserService, UpdateUserService }
+const GetAllCodeService = (inputType) => {
+    return axios.get(`/api/allcode?type=${inputType}`)
+}
+export {
+    handldeLoginApi,
+    GetAllUser,
+    creatNewUserReact,
+    DeleteUserService,
+    UpdateUserService,
+    GetAllCodeService
+}
