@@ -7,6 +7,7 @@ import *as actions from '../../../store/actions';
 import './UserRedux.scss';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
+import TableManageUser from './TableManageUser';
 
 class UserRedux extends Component {
 
@@ -74,6 +75,20 @@ class UserRedux extends Component {
                 role: arrRoles && arrRoles.length > 0 ? arrRoles[0].ket : ''
             })
         }
+        if (prevProps.listUsers !== this.props.listUsers) {
+            this.setState({
+                email: '',
+                password: '',
+                firstName: '',
+                lastName: '',
+                phoneNumber: '',
+                address: '',
+                gender: '',
+                position: '',
+                role: '',
+                avatar: ''
+            })
+        }
     }
 
     handleOnchangeImg = (event) => {
@@ -137,7 +152,6 @@ class UserRedux extends Component {
 
 
     render() {
-        console.log("check state", this.state)
         let genders = this.state.genderArr;
         let language = this.props.language;
         let isGetGenders = this.props.isLoadingGender;
@@ -249,15 +263,19 @@ class UserRedux extends Component {
                                 </div>
 
                             </div>
-                            <div className='col-12 mt-3'>
+                            <div className='col-12 my-3'>
                                 <button className='btn btn-primary'
                                     onClick={() => this.handleSaveUser()}><FormattedMessage id="manage-user.save" /></button>
+                            </div>
+                            <div className='col-12 mb-5'>
+                                <TableManageUser />
                             </div>
 
                         </div>
 
                     </div>
                 </div>
+
                 {this.state.isOpen === true &&
                     <Lightbox
                         mainSrc={this.state.previewImgUrl}
@@ -277,7 +295,8 @@ const mapStateToProps = state => {
         genderRedux: state.admin.genders,
         isLoadingGender: state.admin.isLoadingGender,
         positionRedux: state.admin.positions,
-        roleRedux: state.admin.roles
+        roleRedux: state.admin.roles,
+        listUsers: state.admin.users
     };
 };
 
@@ -286,7 +305,8 @@ const mapDispatchToProps = dispatch => {
         getGenderStart: () => dispatch(actions.fetchGenderStart()),
         getPositionStart: () => dispatch(actions.fetchPositionStart()),
         getRoleStart: () => dispatch(actions.fetchRoleStart()),
-        creatNewUser: (data) => dispatch(actions.creatNewUser(data))
+        creatNewUser: (data) => dispatch(actions.creatNewUser(data)),
+
         // processLogout: () => dispatch(actions.processLogout()),
         // changeLanguageAppRedux: (language) => dispatch(actions.changeLanguageApp(language))
     };
