@@ -27,11 +27,16 @@ const UpdateUserService = (inPutUser) => {
 const GetAllCodeService = (inputType) => {
     return axios.get(`/api/allcode?type=${inputType}`)
 }
+
+const getTopDoctorHomeService = (limit) => {
+    return axios.get(`/api/top-doctor-home?limit=${limit}`)
+}
 export {
     handldeLoginApi,
     GetAllUser,
     creatNewUserReact,
     DeleteUserService,
     UpdateUserService,
-    GetAllCodeService
+    GetAllCodeService,
+    getTopDoctorHomeService
 }
