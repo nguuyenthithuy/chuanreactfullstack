@@ -17,7 +17,7 @@ class HomePage extends Component {
         let settings = {
             slidesToShow: 4,
             slidesToScroll: 1,
-            infinite: true,
+            infinite: false,
             dots: false,
             speed: 500
         };

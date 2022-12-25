@@ -31,15 +31,21 @@ class OutStandingDoctor extends Component {
 
         console.log('check redux topdoctor', this.props.topDoctorsRedux)
         let arrDoctors = this.state.arrDoctor
-        arrDoctors = arrDoctors.concat(arrDoctors).concat(arrDoctors) // double arrDoctors
+        // arrDoctors = arrDoctors.concat(arrDoctors).concat(arrDoctors) // double arrDoctors
 
         let { language } = this.props
         return (
             <div className='section-share section-outstanding-doctor'>
                 <div className='section-container'>
                     <div className='section-header'>
-                        <span className='title-section'>Bác sĩ nổi bật tuần qua</span>
-                        <button className='btn-section'>Xem thêm</button>
+                        <span className='title-section'>
+                            <FormattedMessage id="homePage.outstanding-doctor" />
+
+                        </span>
+                        <button className='btn-section'>
+                            <FormattedMessage id="homePage.more-infor" />
+
+                        </button>
                     </div>
                     <div className='section-body'>
                         <Slider {...this.props.settings}>
@@ -50,7 +56,7 @@ class OutStandingDoctor extends Component {
                                     if (item.image) {
                                         imageBase64 = new Buffer(item.image, 'base64').toString('binary')
                                     }
-                                    let nameVi = `${item.positionData.valueVi} ,${item.firstName} ${item.lastName}`
+                                    let nameVi = `${item.positionData.valueVi} ,${item.lastName} ${item.firstName} `
                                     let nameEn = `${item.positionData.valueEn} ,${item.firstName} ${item.lastName}`
                                     return (
                                         <div className='section-customize' key={index}>
