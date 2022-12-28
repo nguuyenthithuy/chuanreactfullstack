@@ -55,60 +55,62 @@ class HomeHeader extends Component {
                     </div>
 
                 </div>
-                <div className='home-header-banner'>
-                    <div className='content-up'>
-                        <div className='title1'><FormattedMessage id="banner.title1" /></div>
-                        <div className='title2'><FormattedMessage id="banner.title2" /></div>
-                        <div className='search'>
-                            <i className="fas fa-search"></i>
-                            <input type='text' placeholder='Tìm lý do khám' />
+                {this.props.isShowBanner === true &&
+                    <div className='home-header-banner'>
+                        <div className='content-up'>
+                            <div className='title1'><FormattedMessage id="banner.title1" /></div>
+                            <div className='title2'><FormattedMessage id="banner.title2" /></div>
+                            <div className='search'>
+                                <i className="fas fa-search"></i>
+                                <input type='text' placeholder='Tìm lý do khám' />
+                            </div>
                         </div>
-                    </div>
-                    <div className='content-down'>
-                        <div className='options'>
-                            <div className='options-child'>
-                                <div className='icon-child'> <i className="fas fa-hospital"></i> </div>
-                                <div className='text-child'><FormattedMessage id="banner.child1" /></div>
-                            </div>
-                            <div className='options-child'>
-                                <div className='icon-child'> <i className="fas fa-mobile-alt"></i> </div>
-                                <div className='text-child'><FormattedMessage id="banner.child2" /></div>
-                            </div>
-                            <div className='options-child'>
-                                <div className='icon-child'> <i className="fas fa-procedures"></i> </div>
-                                <div className='text-child'><FormattedMessage id="banner.child3" /></div>
-                            </div>
-                            <div className='options-child'>
-                                <div className='icon-child'> <i className="fas fa-flask"></i> </div>
-                                <div className='text-child'><FormattedMessage id="banner.child4" /></div>
-                            </div>
-                            <div className='options-child'>
-                                <div className='icon-child'> <i className="fas fa-heartbeat"></i> </div>
-                                <div className='text-child'><FormattedMessage id="banner.child5" /></div>
-                            </div>
-                            <div className='options-child'>
-                                <div className='icon-child'> <i className="fas fa-briefcase-medical"></i> </div>
-                                <div className='text-child'><FormattedMessage id="banner.child6" /></div>
-                            </div>
-                            <div className='options-child'>
-                                <div className='icon-child'> <i className="fas fa-syringe"></i> </div>
-                                <div className='text-child'><FormattedMessage id="banner.child7" /></div>
-                            </div>
-                            <div className='options-child'>
-                                <div className='icon-child'> <i className="fas fa-ambulance"></i> </div>
-                                <div className='text-child'><FormattedMessage id="banner.child8" /></div>
-                            </div>
-                            <div className='options-child'>
-                                <div className='icon-child'> <i className="fas fa-plus-circle"></i> </div>
-                                <div className='text-child'><FormattedMessage id="banner.child9" /></div>
-                            </div>
+                        <div className='content-down'>
+                            <div className='options'>
+                                <div className='options-child'>
+                                    <div className='icon-child'> <i className="fas fa-hospital"></i> </div>
+                                    <div className='text-child'><FormattedMessage id="banner.child1" /></div>
+                                </div>
+                                <div className='options-child'>
+                                    <div className='icon-child'> <i className="fas fa-mobile-alt"></i> </div>
+                                    <div className='text-child'><FormattedMessage id="banner.child2" /></div>
+                                </div>
+                                <div className='options-child'>
+                                    <div className='icon-child'> <i className="fas fa-procedures"></i> </div>
+                                    <div className='text-child'><FormattedMessage id="banner.child3" /></div>
+                                </div>
+                                <div className='options-child'>
+                                    <div className='icon-child'> <i className="fas fa-flask"></i> </div>
+                                    <div className='text-child'><FormattedMessage id="banner.child4" /></div>
+                                </div>
+                                <div className='options-child'>
+                                    <div className='icon-child'> <i className="fas fa-heartbeat"></i> </div>
+                                    <div className='text-child'><FormattedMessage id="banner.child5" /></div>
+                                </div>
+                                <div className='options-child'>
+                                    <div className='icon-child'> <i className="fas fa-briefcase-medical"></i> </div>
+                                    <div className='text-child'><FormattedMessage id="banner.child6" /></div>
+                                </div>
+                                <div className='options-child'>
+                                    <div className='icon-child'> <i className="fas fa-syringe"></i> </div>
+                                    <div className='text-child'><FormattedMessage id="banner.child7" /></div>
+                                </div>
+                                <div className='options-child'>
+                                    <div className='icon-child'> <i className="fas fa-ambulance"></i> </div>
+                                    <div className='text-child'><FormattedMessage id="banner.child8" /></div>
+                                </div>
+                                <div className='options-child'>
+                                    <div className='icon-child'> <i className="fas fa-plus-circle"></i> </div>
+                                    <div className='text-child'><FormattedMessage id="banner.child9" /></div>
+                                </div>
 
 
 
+                            </div>
                         </div>
-                    </div>
 
-                </div>
+                    </div>
+                }
             </Fragment>
         );
     }
