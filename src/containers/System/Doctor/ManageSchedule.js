@@ -7,7 +7,7 @@ import Select from 'react-select';
 import { CRUD_ACTIONS, LANGUAGES, dateFormat } from '../../../utils';
 import DatePicker from '../../../components/Input/DatePicker';
 import moment from 'moment';
-
+import { saveBulkCreatDoctor } from '../../../services/userService'
 import './ManageSchedule.scss'
 import { isConstructorDeclaration } from 'typescript';
 import { toast } from "react-toastify";
@@ -97,7 +97,7 @@ class ManageSchedule extends Component {
         }
     }
 
-    handleSaveTime = () => {
+    handleSaveTime = async () => {
         let { rangeTime, selectedDoctor, currentDate } = this.state;
         let result = []
 
@@ -109,7 +109,9 @@ class ManageSchedule extends Component {
             toast.error("Invalid selectedDoctor");
             return
         }
-        let fomatedDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER)
+        // let fomatedDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER)
+        // new Date().getTime();
+        let fomatedDate = new Date(currentDate).getTime();
 
         if (rangeTime && rangeTime.length > 0) {
             let selectedTime = rangeTime.filter(item => item.isSelected === true)
@@ -118,7 +120,7 @@ class ManageSchedule extends Component {
                     let object = {}
                     object.doctorId = selectedDoctor.value; // lấy id 
                     object.date = fomatedDate;              // format Date : DD/MM/YYY
-                    object.time = schedule.keyMap;          // keyMap : TIME : T1 T2 T3
+                    object.timeType = schedule.keyMap;          // keyMap : TIME : T1 T2 T3
                     result.push(object)
                 })
             }
@@ -127,7 +129,12 @@ class ManageSchedule extends Component {
                 return
             }
         }
-        console.log('check result', result)
+        let res = await saveBulkCreatDoctor({
+            arrSchedule: result,
+            doctorId: selectedDoctor.value,
+            date: fomatedDate
+        })
+        console.log('check res', res)
     }
 
     render() {
