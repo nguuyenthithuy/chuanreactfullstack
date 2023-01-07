@@ -12,7 +12,8 @@ class DoctorSchedule extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            allDay: []
+            allDay: [],
+            allAvailabelTime: []
         }
     }
 
@@ -27,12 +28,17 @@ class DoctorSchedule extends Component {
 
 
     }
+    capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
     setArrDay = async (language) => {
         let arrDay = [];
         for (let i = 0; i < 7; i++) {
             let object = {}
+
+            let dateFirstLetter = moment(new Date()).add(i, 'days').format('dddd - DD/MM')
             if (language === LANGUAGES.VI) {
-                object.label = moment(new Date()).add(i, 'days').format('dddd - DD/MM')
+                object.label = this.capitalizeFirstLetter(dateFirstLetter)
             }
             else {
                 object.label = moment(new Date()).add(i, 'days').locale('en').format('ddd - DD/MM')
@@ -63,12 +69,19 @@ class DoctorSchedule extends Component {
             let date = event.target.value;
             let res = await getScheduleDoctorByDate(doctorId, date)
             console.log('check res', res)
+
+            if (res && res.errCode === 0) {
+                this.setState({
+                    allAvailabelTime: res.data ? res.data : []
+                })
+            }
         }
         console.log('check event', event.target.value,)
     }
 
     render() {
-        let { allDay } = this.state
+        let { allDay, allAvailabelTime } = this.state
+        let { language } = this.props
         console.log('check allday', allDay)
         return (
             <div className='doctor-schedule-container'>
@@ -78,6 +91,7 @@ class DoctorSchedule extends Component {
                     >
                         {allDay && allDay.length > 0 &&
                             allDay.map((item, index) => {
+
                                 return (
                                     <option key={index} value={item.value}>
                                         {item.label}
@@ -88,7 +102,23 @@ class DoctorSchedule extends Component {
                     </select>
                 </div>
                 <div className='all-availabel-time'>
+                    <div className='text-calendar'>
+                        <i className="fas fa-calendar-alt"><span> Lịch Khám </span></i>
+                    </div>
+                    <div className='time-content'>
+                        {allAvailabelTime && allAvailabelTime.length > 0 ?
+                            allAvailabelTime.map((item, index) => {
+                                let timeDisPlay = language === LANGUAGES.VI ? item.timeTypeData.valueVi : item.timeTypeData.valueEn
 
+                                return (
+                                    <button key={index}>{timeDisPlay}</button>
+                                )
+                            })
+                            :
+                            <div> Hôm nay bác sĩ không có lịch khám vui lòng chọn ngày khác  </div>
+                        }
+
+                    </div>
                 </div>
             </div>
         );
