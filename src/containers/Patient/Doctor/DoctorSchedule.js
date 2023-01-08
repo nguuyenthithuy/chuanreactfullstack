@@ -6,6 +6,7 @@ import localization from 'moment/locale/vi';
 import './DoctorSchedule.scss'
 import { LANGUAGES } from '../../../utils';
 import { getScheduleDoctorByDate } from '../../../services/userService'
+import { FormattedMessage } from 'react-intl';
 
 class DoctorSchedule extends Component {
 
@@ -24,24 +25,40 @@ class DoctorSchedule extends Component {
         console.log('moment en', moment(new Date()).locale('en').format('ddd - DD/MM'))
 
         // locale để xét tiếng anh tiếng việt nếu không sẽ tự động là tiếng anh
-        this.setArrDay(language)
-
+        let arrDay = this.getArrDays(language)
+        this.setState({
+            allDay: arrDay,
+        })
 
     }
     capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
-    setArrDay = async (language) => {
+    getArrDays = (language) => {
         let arrDay = [];
         for (let i = 0; i < 7; i++) {
             let object = {}
 
             let dateFirstLetter = moment(new Date()).add(i, 'days').format('dddd - DD/MM')
             if (language === LANGUAGES.VI) {
-                object.label = this.capitalizeFirstLetter(dateFirstLetter)
+                if (i === 0) {
+                    let DDMM = moment(new Date()).format('DD/MM')
+                    object.label = `Hôm nay - ${DDMM}`
+                }
+                else {
+                    object.label = this.capitalizeFirstLetter(dateFirstLetter)
+                }
+
             }
             else {
-                object.label = moment(new Date()).add(i, 'days').locale('en').format('ddd - DD/MM')
+                if (i === 0) {
+                    let DDMM = moment(new Date()).format('DD/MM')
+                    object.label = `Today - ${DDMM}`
+                }
+                else {
+                    object.label = moment(new Date()).add(i, 'days').locale('en').format('ddd - DD/MM')
+                }
+
             }
 
             object.value = moment(new Date()).add(i, 'days').startOf('days').valueOf()
@@ -52,14 +69,21 @@ class DoctorSchedule extends Component {
             arrDay.push(object)
         }
 
-        this.setState({
-            allDay: arrDay
-        })
-
+        return arrDay
     }
-    componentDidUpdate = (prevProps, prevState, snapshot) => {
+    async componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.language !== this.props.language) {
-            this.setArrDay(this.props.language)
+            let allDay = this.getArrDays(this.props.language)
+            this.setState({
+                allDay: allDay
+            })
+        }
+        if (prevProps.detailDoctorFromparent !== this.props.detailDoctorFromparent) {
+            let allDay = this.getArrDays(this.props.language)
+            let res = await getScheduleDoctorByDate(this.props.detailDoctorFromparent, allDay[0].value)
+            this.setState({
+                allAvailabelTime: res.data ? res.data : []
+            })
         }
     }
 
@@ -103,19 +127,34 @@ class DoctorSchedule extends Component {
                 </div>
                 <div className='all-availabel-time'>
                     <div className='text-calendar'>
-                        <i className="fas fa-calendar-alt"><span> Lịch Khám </span></i>
+                        <i className="fas fa-calendar-alt">
+                            <span> <FormattedMessage id="patient.detail-doctor.schedule" /> </span>
+                        </i>
                     </div>
                     <div className='time-content'>
                         {allAvailabelTime && allAvailabelTime.length > 0 ?
-                            allAvailabelTime.map((item, index) => {
-                                let timeDisPlay = language === LANGUAGES.VI ? item.timeTypeData.valueVi : item.timeTypeData.valueEn
+                            <>
+                                <div className='time-content-btns'>
+                                    {allAvailabelTime.map((item, index) => {
+                                        let timeDisPlay = language === LANGUAGES.VI ? item.timeTypeData.valueVi : item.timeTypeData.valueEn
 
-                                return (
-                                    <button key={index}>{timeDisPlay}</button>
-                                )
-                            })
+                                        return (
+                                            <button key={index} className={language === LANGUAGES.VI ? 'btn-vi' : 'btn-en'}>
+                                                {timeDisPlay}
+                                            </button>
+                                        )
+                                    })}
+                                </div>
+                                <div className='book-free'>
+                                    <span>
+                                        <FormattedMessage id="patient.detail-doctor.chosse" />
+                                        <i class="far fa-hand-point-up"></i>
+                                        <FormattedMessage id="patient.detail-doctor.and-book-free" /></span>
+                                </div>
+                            </>
+
                             :
-                            <div> Hôm nay bác sĩ không có lịch khám vui lòng chọn ngày khác  </div>
+                            <div className='no-schedule'> <FormattedMessage id="patient.detail-doctor.no-schedule" />  </div>
                         }
 
                     </div>

@@ -118,6 +118,7 @@ class UserRedux extends Component {
         if (files) {
             let base64 = await CommonUtils.getBase64(files) // convert to file thành base64
             let objectUrl = URL.createObjectURL(files)
+            console.log('check objectRl', objectUrl)
             this.setState({
                 previewImgUrl: objectUrl,
                 avatar: base64

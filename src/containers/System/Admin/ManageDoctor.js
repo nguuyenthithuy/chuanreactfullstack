@@ -125,7 +125,6 @@ class ManageDoctor extends Component {
     render() {
 
         let { hasOldData } = this.state
-
         console.log('check listDoctors :', this.state.listDoctors)
         return (
 
