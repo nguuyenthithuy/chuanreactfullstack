@@ -74,5 +74,14 @@
             "chosse": "Chosse ",
             "and-book-free": " and book (free)"
         }
+    },
+    "admin": {
+        "manage-doctor": {
+            "title": "Create more doctor information",
+            "selected-doctor": "Select Doctor",
+            "Information": "Introduction information:",
+            "Save-Information": "Save Infor",
+            "Creat-Information": "Craet Infor"
+        }
     }
 }
